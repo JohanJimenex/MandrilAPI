@@ -1,4 +1,5 @@
-﻿using MandrilAPI.Helpers;
+﻿using System.Collections.Generic;
+using MandrilAPI.Helpers;
 using MandrilAPI.Models;
 using MandrilAPI.Services;
 using Microsoft.AspNetCore.Mvc;
