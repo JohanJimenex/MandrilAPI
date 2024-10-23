@@ -6,7 +6,7 @@ public class MandrilDataStore
 {
     public List<Mandril> Mandriles { get; set; }
 
-    public static MandrilDataStore Current { get; } = new MandrilDataStore();
+    public static MandrilDataStore Instance { get; } = new MandrilDataStore();
 
     public MandrilDataStore()
     {

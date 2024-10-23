@@ -13,7 +13,7 @@ public class HabilidadController : ControllerBase
     [HttpGet]
     public ActionResult<IEnumerable<Habilidad>> GetHabilidades(int mandrilId)
     {
-        var mandril = MandrilDataStore.Current.Mandriles.FirstOrDefault(x => x.Id == mandrilId);
+        var mandril = MandrilDataStore.Instance.Mandriles.FirstOrDefault(x => x.Id == mandrilId);
 
         if (mandril == null)
             return NotFound(Mensajes.Mandril.NotFound);
@@ -24,7 +24,7 @@ public class HabilidadController : ControllerBase
     [HttpGet("{habilidadId}")]
     public ActionResult<Habilidad> GetHabilidad(int mandrilId, int habilidadId)
     {
-        var mandril = MandrilDataStore.Current.Mandriles.FirstOrDefault(x => x.Id == mandrilId);
+        var mandril = MandrilDataStore.Instance.Mandriles.FirstOrDefault(x => x.Id == mandrilId);
 
         if (mandril == null)
             return NotFound(Mensajes.Mandril.NotFound);
@@ -40,7 +40,7 @@ public class HabilidadController : ControllerBase
     [HttpPost]
     public ActionResult<Habilidad> PostHabilidad(int mandrilId, HabilidadInsert habilidadInsert)
     {
-        var mandril = MandrilDataStore.Current.Mandriles.FirstOrDefault(x => x.Id == mandrilId);
+        var mandril = MandrilDataStore.Instance.Mandriles.FirstOrDefault(x => x.Id == mandrilId);
 
         if (mandril == null)
             return NotFound(Mensajes.Mandril.NotFound);
@@ -71,7 +71,7 @@ public class HabilidadController : ControllerBase
     public ActionResult<Habilidad> PutHabilidad(int mandrilId, int habilidadId, HabilidadInsert habilidadInsert)
     {
         // Validaciones
-        var mandril = MandrilDataStore.Current.Mandriles.FirstOrDefault(x => x.Id == mandrilId);
+        var mandril = MandrilDataStore.Instance.Mandriles.FirstOrDefault(x => x.Id == mandrilId);
 
         if (mandril == null)
             return NotFound(Mensajes.Mandril.NotFound);
@@ -98,7 +98,7 @@ public class HabilidadController : ControllerBase
     public ActionResult<Habilidad> DeleteHabilidad(int mandrilId, int habilidadId)
     {
         // Validaciones
-        var mandril = MandrilDataStore.Current.Mandriles.FirstOrDefault(x => x.Id == mandrilId);
+        var mandril = MandrilDataStore.Instance.Mandriles.FirstOrDefault(x => x.Id == mandrilId);
 
         if (mandril == null)
             return NotFound(Mensajes.Mandril.NotFound);

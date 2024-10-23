@@ -12,16 +12,18 @@ public class MandrilController : ControllerBase
     [HttpGet]
     public ActionResult<IEnumerable<Mandril>> GetMandriles()
     {
-        return Ok(MandrilDataStore.Current.Mandriles);
+        return Ok(MandrilDataStore.Instance.Mandriles);
     }
 
     [HttpGet("{mandrilId}")]
     public ActionResult<Mandril> GetMandril(int mandrilId)
     {
-        var mandril = MandrilDataStore.Current.Mandriles.FirstOrDefault(x => x.Id == mandrilId);
+        var mandril = MandrilDataStore.Instance.Mandriles.FirstOrDefault(x => x.Id == mandrilId);
 
         if (mandril == null)
+        {
             return NotFound(Mensajes.Mandril.NotFound);
+        }
 
         return Ok(mandril);
 
@@ -30,16 +32,17 @@ public class MandrilController : ControllerBase
     [HttpPost]
     public ActionResult<Mandril> PostMandril(MandrilInsert mandrilInsert)
     {
-        var maxMandrilId = MandrilDataStore.Current.Mandriles.Max(x => x.Id);
+        var maxMandrilId = MandrilDataStore.Instance.Mandriles.Max(x => x.Id);
 
-        var mandrilNuevo = new Mandril() {
+        var mandrilNuevo = new Mandril()
+        {
             Id = maxMandrilId + 1,
             Nombre = mandrilInsert.Nombre,
             Apellido = mandrilInsert.Apellido
         };
 
-        MandrilDataStore.Current.Mandriles.Add(mandrilNuevo);
-
+        MandrilDataStore.Instance.Mandriles.Add(mandrilNuevo);
+        //Este metodo CreateAtAction devuelve un 201 Created y la URL donde se puede obtener el recurso creado
         return CreatedAtAction(nameof(GetMandril),
             new { mandrilId = mandrilNuevo.Id },
             mandrilNuevo
@@ -49,7 +52,7 @@ public class MandrilController : ControllerBase
     [HttpPut("{mandrilId}")]
     public ActionResult<Mandril> PutMandril([FromRoute] int mandrilId, [FromBody] MandrilInsert mandrilInsert)
     {
-        var mandril = MandrilDataStore.Current.Mandriles.FirstOrDefault(x => x.Id == mandrilId);
+        var mandril = MandrilDataStore.Instance.Mandriles.FirstOrDefault(x => x.Id == mandrilId);
 
         if (mandril == null)
             return NotFound(Mensajes.Mandril.NotFound);
@@ -61,17 +64,18 @@ public class MandrilController : ControllerBase
 
     }
 
-    [HttpDelete("{mandrilId}")]
+
+    [HttpDelete("{mandrilId}")]   //otra fomra // [HttpDelete("{id:int}")]
     public ActionResult<Mandril> DeleteMandril(int mandrilId)
     {
-        var mandril = MandrilDataStore.Current.Mandriles.FirstOrDefault(x => x.Id == mandrilId);
+        var mandril = MandrilDataStore.Instance.Mandriles.FirstOrDefault(x => x.Id == mandrilId);
 
         if (mandril == null)
             return NotFound(Mensajes.Mandril.NotFound);
 
-        MandrilDataStore.Current.Mandriles.Remove(mandril);
+        MandrilDataStore.Instance.Mandriles.Remove(mandril);
 
-        return NoContent();
+        return NoContent(); // se devuelve un 204 No Content porque no se devuelve ningun contenido en el body
 
     }
 
